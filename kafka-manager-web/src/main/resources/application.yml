@@ -11,10 +11,10 @@ spring:
     name: kafkamanager
   datasource:
     kafka-manager:
-      jdbc-url: jdbc:mysql://localhost:3306/logi_kafka_manager?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
-      username: root
-      password: 123456
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://{{ include "datasource.mysql" . }}:3306/{{ .Values.mysql.auth.database }}?characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+      username: {{ .Values.mysql.auth.username }}
+      password: {{ .Values.mysql.auth.password }}
+      driver-class-name: com.mysql.jdbc.Driver
   main:
     allow-bean-definition-overriding: true
 
@@ -31,7 +31,7 @@ logging:
 custom:
   idc: cn
   jmx:
-    max-conn: 10 # 2.3版本配置不在这个地方生效
+    max-conn: 20
   store-metrics-task:
     community:
       broker-metrics-enabled: true
@@ -46,31 +46,17 @@ custom:
 task:
   op:
     sync-topic-enabled: false # 未落盘的Topic定期同步到DB中
-    order-auto-exec:          # 工单自动化审批线程的开关
-      topic-enabled: false      # Topic工单自动化审批开关, false:关闭自动化审批, true:开启
-      app-enabled: false        # App工单自动化审批开关, false:关闭自动化审批, true:开启
 
 account:
+  # ldap settings
   ldap:
     enabled: false
-    url: ldap://127.0.0.1:389/
-    basedn: dc=tsign,dc=cn
-    factory: com.sun.jndi.ldap.LdapCtxFactory
-    filter: sAMAccountName
-    security:
-      authentication: simple
-      principal: cn=admin,dc=tsign,dc=cn
-      credentials: admin
-    auth-user-registration: true
-    auth-user-registration-role: normal
+    authUserRegistration: false
 
 kcm:
   enabled: false
-  s3:
-    endpoint: s3.didiyunapi.com
-    access-key: 1234567890
-    secret-key: 0987654321
-    bucket: logi-kafka
+  storage:
+    base-url: http://127.0.0.1
   n9e:
     base-url: http://127.0.0.1:8004
     user-token: 12345678
@@ -84,11 +70,11 @@ monitor:
     nid: 2
     user-token: 1234567890
     mon:
-      base-url: http://127.0.0.1:8000 # 夜莺v4版本，默认端口统一调整为了8000
+      base-url: http://127.0.0.1:8032
     sink:
-      base-url: http://127.0.0.1:8000 # 夜莺v4版本，默认端口统一调整为了8000
+      base-url: http://127.0.0.1:8006
     rdb:
-      base-url: http://127.0.0.1:8000 # 夜莺v4版本，默认端口统一调整为了8000
+      base-url: http://127.0.0.1:80
 
 notify:
   kafka:
