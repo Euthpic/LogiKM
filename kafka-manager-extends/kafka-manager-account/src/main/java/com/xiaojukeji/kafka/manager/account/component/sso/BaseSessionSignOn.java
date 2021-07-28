@@ -40,7 +40,7 @@ public class BaseSessionSignOn extends AbstractSingleSignOn {
 
     //ldap自动注册是否开启
     @Value(value = "${account.ldap.auth-user-registration:}")
-    private boolean authUserRegistration;
+    private Boolean authUserRegistration;
 
     @Override
     public Result<String> loginAndGetLdap(HttpServletRequest request, HttpServletResponse response, LoginDTO dto) {
