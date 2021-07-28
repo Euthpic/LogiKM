@@ -16,10 +16,12 @@ ENV JAVA_OPTS="-verbose:gc  \
     -XX:MaxMetaspaceSize=256M  -XX:+DisableExplicitGC -XX:+UseStringDeduplication \
     -XX:+UseG1GC  -XX:+HeapDumpOnOutOfMemoryError   -XX:-UseContainerSupport" 
 
-RUN wget https://github.com/didi/Logi-KafkaManager/releases/download/v${VERSION}/kafka-manager-${VERSION}.tar.gz && \
-    tar xvf kafka-manager-${VERSION}.tar.gz && \
-    mv kafka-manager-${VERSION}/kafka-manager.jar /opt/app.jar && \
-    rm -rf kafka-manager-${VERSION}*
+COPY output/kafka-manager-${VERSION}/kafka-manager.jar /opt/app.jar
+
+#RUN wget https://github.com/didi/Logi-KafkaManager/releases/download/v${VERSION}/kafka-manager-${VERSION}.tar.gz && \
+#    tar xvf kafka-manager-${VERSION}.tar.gz && \
+#    mv kafka-manager-${VERSION}/kafka-manager.jar /opt/app.jar && \
+#    rm -rf kafka-manager-${VERSION}*
 
 EXPOSE 8080  9999
 
