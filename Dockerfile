@@ -7,8 +7,8 @@ ENV  VERSION 2.4.2
 WORKDIR /opt/
 
 ENV AGENT_HOME /opt/agent/
-COPY docker-depends/config.yaml    $AGENT_HOME
-COPY docker-depends/jmx_prometheus_javaagent-0.15.0.jar $AGENT_HOME
+COPY container/dockerfiles/docker-depends/config.yaml    $AGENT_HOME
+COPY container/dockerfiles/docker-depends/jmx_prometheus_javaagent-0.15.0.jar $AGENT_HOME
 
 ENV JAVA_AGENT="-javaagent:$AGENT_HOME/jmx_prometheus_javaagent-0.15.0.jar=9999:$AGENT_HOME/config.yaml"
 ENV JAVA_HEAP_OPTS="-Xms1024M -Xmx1024M -Xmn100M "
