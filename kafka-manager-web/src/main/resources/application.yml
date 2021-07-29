@@ -11,9 +11,9 @@ spring:
     name: kafkamanager
   datasource:
     kafka-manager:
-      jdbc-url: jdbc:mysql://{{ include "datasource.mysql" . }}:3306/{{ .Values.mysql.auth.database }}?characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
-      username: {{ .Values.mysql.auth.username }}
-      password: {{ .Values.mysql.auth.password }}
+      jdbc-url: jdbc:mysql://didi-km-mysql:3306/logi_kafka_manager?characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+      username: logi_kafka_manager
+      password: n0tp@55w0rd
       driver-class-name: com.mysql.jdbc.Driver
   main:
     allow-bean-definition-overriding: true
