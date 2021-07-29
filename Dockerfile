@@ -27,4 +27,4 @@ EXPOSE 8080  9999
 
 ENTRYPOINT ["tini", "--"]
 
-CMD [ "sh", "-c", "java -jar $JAVA_AGENT $JAVA_HEAP_OPTS $JAVA_OPTS app.jar --spring.config.location=application.yml"]
+CMD [ "sh", "-c", "java -jar $JAVA_AGENT $JAVA_HEAP_OPTS $JAVA_OPTS app.jar"]
